@@ -29,8 +29,8 @@ $conn->select_db($dbName);
 // Create User table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS User (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    ID_Number VARCHAR(20) NOT NULL,
-    username VARCHAR(50) NOT NULL,
+    ID_number VARCHAR(20) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
     email VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
@@ -43,9 +43,9 @@ if ($conn->query($sql) === TRUE) {
 // Create Store table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS Store (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    store_id INT(11) UNSIGNED NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    pin VARCHAR(20) NOT NULL,
+    store_id VARCHAR(100) NOT NULL,
+    store_name VARCHAR(100) NOT NULL,
+    pin VARCHAR(6) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX (store_id)
 )";
@@ -56,12 +56,13 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
+
 // Create Consumption table if it doesn't exist
 $sql = "CREATE TABLE IF NOT EXISTS Consumption (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id INT(11) UNSIGNED NOT NULL,
     amount INT(11) NOT NULL,
-    store_id INT(11) UNSIGNED NOT NULL,
+    store_id VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
     FOREIGN KEY (store_id) REFERENCES Store(store_id) ON DELETE CASCADE
